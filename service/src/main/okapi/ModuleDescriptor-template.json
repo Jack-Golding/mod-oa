@@ -189,6 +189,10 @@
           "methods": ["POST"],
           "pathPattern": "/oa/works/citation",
           "permissionsRequired": [ "oa.works.create" ]
+        },
+        {
+          "methods": ["GET"],
+          "pathPattern": "/oa/openapc"
         }
       ]
     },
