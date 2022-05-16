@@ -1007,4 +1007,26 @@ databaseChangeLog = {
       referencedTableName: "refdata_value"
     )
   }
+
+  changeSet(author: "ianibo (manual)", id: "2022-05-16-1814-001") {
+
+    createTable(tableName: "kiwt_module_version") {
+      column(name: "mv_id", type: "VARCHAR(36)")
+      column(name: "mv_ver", type: "VARCHAR(36)")
+    }
+
+    grailsChange {
+      change {
+        sql.execute("""INSERT INTO ${database.defaultSchemaName}.kiwt_module_version(mv_id,mv_ver) values ( 'mod_oa', '1.0.0-SNAPSHOT' )""".toString())
+      }
+    }
+
+    grailsChange {
+      change {
+        sql.execute(""" UPDATE ${database.defaultSchemaName}.kiwt_module_version SET mv_ver='1.0.0-SNAPSHOT' WHERE mv_id='mod_oa'""".toString())
+      }
+    }
+
+  }
+
 }
