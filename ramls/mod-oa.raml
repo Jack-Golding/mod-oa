@@ -5,10 +5,28 @@ version: 1.0
 
 types:
   AppSetting:
+    type: object 
+    properties: 
+      id: String
+      section: String
+      key: String
+      settingType: String
+      vocab: String
+      defValue: String
+      value: String
+    examples:
+      stringSetting:
+        id: 1234
+        section: NCIP
+        key: EndpointURL
+        settingType: String
+        vocab: null
+        defValue: null
+        value: http://some.host/some/path
   Funding:
   TitleInstance:
   Work:
-  Party: 
+  Party:
   ChecklistGroup:
   Correspondence:
   RefdataCategory:
@@ -16,7 +34,7 @@ types:
 
 traits:
   simpleLookupService:
-    description: Simple lookup service is a trait that supports the default FOLIO UX by providing a simple search box and a field to use along with a more complex filter expression language             
+    description: Simple lookup service is a trait that supports the default FOLIO UX by providing a simple search box and a field to use along with a more complex filter expression language
     queryParameters:
       filters:
         description: A DSL for filtering understanding logical connectives && ||, comparisons =i= == != 
@@ -69,27 +87,28 @@ resourceTypes:
     type: { GrailsResourceCollection: { "typeName": "AppSetting" } }
     description: Application settings
 
-/fundings
+/fundings:
   type: { GrailsResourceCollection: { "typeName": "Funding" } }
   description: Application settings
 
-/titleInstances
+/titleInstances:
   type: { GrailsResourceCollection: { "typeName": "TitleInstance" } }
   description: An Instance in the FRBR/Bibframe sense - an individually identifable specific appearence of a work made concrete in some medium/form/edition
 
-/works
+/works:
   type: { GrailsResourceCollection: { "typeName": "Work" } }
   description: A work in the FRBR/Bibframe Sense - E.G. "Nature" as opposed to the print or electronic instances of Nature, or "Brain of the Firm" a book but not a specific edition of that book
 
-/party
+/party:
   type: { GrailsResourceCollection: { "typeName": "Party" } }
   description: An individual or institution participating in an OA publication request - possibly NOT a member of THIS institution and possibly without a login
 
-/checklistGroup
+/checklistGroup:
   type: { GrailsResourceCollection: { "typeName": "ChecklistGroup" } }
   description:
 
-/correspondence
+/correspondence:
   type: { GrailsResourceCollection: { "typeName": "Correspondence" } }
   description:
+
 
