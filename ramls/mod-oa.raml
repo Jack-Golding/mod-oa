@@ -1,0 +1,92 @@
+#%RAML 1.0
+title: FOLIO Open Access API
+baseUri: /oa
+version: 1.0
+
+traits:
+  simpleLookupService:
+    description: Simple lookup service is a trait that supports the default FOLIO UX by providing a simple search box and a field to use along with a more complex filter expression language             
+    queryParameters:
+      filters:
+        description: A DSL for filtering understanding logical connectives && ||, comparisons =i= == != 
+      sort:
+        description: List of fields/order specifiers
+      max:
+       description: Maximum number of objects to return
+      match:
+       description: Field to use for term search
+      term:
+        description: Term to search for
+      offset:
+        description: Offset for paging
+      stats:
+        description: Wrap the search result in an outer object that reports hit counts and other search metadata
+
+resourceTypes:
+  GrailsResource:
+    collection:
+      description: General REST api for instances of <<typeName>>
+      get:
+        description: Search over all current instances of this resource class
+        is: [simpleLookupService]
+        responses:
+          200:
+            application/json:
+               type: <<resourcePathName|!singularize|!uppercamelcase>>[]
+      post:
+        description: Create a new instance of the Resource Class
+        type: <<resourcePathName|!singularize|!uppercamelcase>>
+        responses:
+          201:
+            body:
+              application/json:
+                type: <<typeName>>
+      /{id}:
+        put:
+          description: Update an existing instance
+          type:  <<resourcePathName|!singularize|!uppercamelcase>>
+        get:
+          description: Get a specific instance
+          type:  <<resourcePathName|!singularize|!uppercamelcase>>
+
+/refdata:
+  displayName: Resource Endpoint for refdata
+  get:
+    is: [simpleLookupService]
+  post:
+    description: Create a new refdata category
+  /{refdata_category}:
+    displayName: Access a specific category
+    is [GrailsResource]
+    get:
+      description: Get all values in a category
+
+/settings:
+  /appSettings:
+    type: { collection: { "typeName": "AppSetting" } }
+    description: Application settings
+
+/fundings
+  type: { collection: { "typeName": "Funding" } }
+  description: Application settings
+
+/titleInstances
+  type: { collection: { "typeName": "TitleInstance" } }
+  description: An Instance in the FRBR/Bibframe sense - an individually identifable specific appearence of a work made concrete in some medium/form/edition
+
+/works
+  type: { collection: { "typeName": "Work" } }
+  description: A work in the FRBR/Bibframe Sense - E.G. "Nature" as opposed to the print or electronic instances of Nature, or "Brain of the Firm" a book but not a specific edition of that book
+
+/party
+  type: { collection: { "typeName": "Party" } }
+  description: An individual or institution participating in an OA publication request - possibly NOT a member of THIS institution and possibly without a login
+
+/checklistGroup
+  type: { collection: { "typeName": "ChecklistGroup" } }
+  description:
+
+/correspondence
+  type: { collection: { "typeName": "Correspondence" } }
+  description:
+
