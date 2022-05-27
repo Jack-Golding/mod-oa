@@ -7,6 +7,7 @@ import grails.testing.mixin.integration.Integration
 import groovyx.net.http.FromServer
 import spock.lang.*
 import spock.util.concurrent.PollingConditions
+import groovy.json.JsonOutput;
 
 @Integration
 @Stepwise
@@ -114,6 +115,19 @@ class TenantAPISpec extends HttpSpec {
       conditions.eventually {
         (list = doGet('/oa/refdata')).size() > 0
       }
+  }
+
+  void "Check OpenAPI endpoint"() {
+    when:"We call the swagger api endpoint"
+      def api_response = doGet("/oa/swagger/api");
+
+    then:"Check the docs"
+      log.debug("Got response to API GET message: ${api_response}");
+      api_response != null
+      File swagger_output = new File('mod_oa_openapi.json')
+      if ( swagger_output.exists() )
+        swagger_output.delete();
+      swagger_output << JsonOutput.prettyPrint(JsonOutput.toJson(api_response))
   }
 
 }

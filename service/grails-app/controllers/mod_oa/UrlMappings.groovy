@@ -25,5 +25,7 @@ class UrlMappings {
     "/oa/party" (resources: "party")
     "/oa/checklistGroup" (resources: "checklistGroup")
     "/oa/correspondence" (resources: "correspondence")
+
+    "/oa/swagger/api" (controller: "swagger", action: "api")
   }
 }

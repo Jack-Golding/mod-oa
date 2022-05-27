@@ -31,6 +31,10 @@ grails:
               pattern: '/**'
               access:
                 - 'permitAll'
+            -
+              pattern: '/swagger/api'
+              access:
+                - 'permitAll'
         filterChain:
           chainMap:
             - 

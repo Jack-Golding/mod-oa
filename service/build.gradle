@@ -66,6 +66,7 @@ repositories {
   maven { url 'https://maven.indexdata.com/' }
   maven { url "https://maven.k-int.com/content/repositories/public" }
   maven { url "https://repo.gradle.org/gradle/libs-releases-local" }
+  maven { url "https://steamcleaner.jfrog.io/artifactory/grails-plugins" }
 }
 
 sourceSets {
@@ -159,6 +160,8 @@ dependencies {
   testCompile( 'com.athaydes:spock-reports:1.6.1' ) {
     transitive = false // this avoids affecting your version of Groovy/Spock
   }
+
+  compile "org.grails.plugins:swagger-grails:0.4.0"
 }
 
 bootRun {
