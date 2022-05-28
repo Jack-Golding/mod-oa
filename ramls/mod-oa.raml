@@ -66,6 +66,13 @@ traits:
         description: Wrap the search result in an outer object that reports hit counts and other search metadata
 
 resourceTypes:
+  KIWTResourceItem:
+    put:
+      description: Update an existing instance
+      type:  <<typeName>>
+    get:
+      description: Get a specific instance
+      type:  <<typeName>>
   KIWTResourceCollection:
     description: General REST api for instances of <<typeName>>
     get:
@@ -74,23 +81,19 @@ resourceTypes:
       responses:
         200:
           application/json:
-            type: <<resourcePathName|!singularize|!uppercamelcase>>[]
+            type: <<typeName>>[]
     post:
       description: Create a new instance of the Resource Class
-      type: <<resourcePathName|!singularize|!uppercamelcase>>
+      type: <<typeName>>
       responses:
         201:
           body:
             application/json:
               type: <<typeName>>
-  KIWTResourceItem:
-    put:
-      description: Update an existing instance
-      type:  <<resourcePathName|!singularize|!uppercamelcase>>
-    get:
-      description: Get a specific instance
-      type:  <<resourcePathName|!singularize|!uppercamelcase>>
-
+  /{id}:
+    type: 
+      KIWTResourceItem { "typeName": <<typeName>> }
+    
 /refdata:
   /{refdata_category}:
     displayName: Access a specific category
@@ -111,7 +114,8 @@ resourceTypes:
 
 /works:
   type: { KIWTResourceCollection: { "typeName": "Work" } }
-  description: A work in the FRBR/Bibframe Sense - E.G. "Nature" as opposed to the print or electronic instances of Nature, or "Brain of the Firm" a book but not a specific edition of that book
+  description: |
+    A work in the FRBR/Bibframe Sense - E.G. "Nature" as opposed to the print or electronic instances of Nature, or "Brain of the Firm" a book but not a specific edition of that book.
 
 /party:
   type: { KIWTResourceCollection: { "typeName": "Party" } }
