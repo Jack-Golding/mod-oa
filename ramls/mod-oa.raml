@@ -34,13 +34,27 @@ types:
 
 traits:
   simpleLookupService:
-    description: Simple lookup service is a trait that supports the default FOLIO UX by providing a simple search box and a field to use along with a more complex filter expression language
+    description: |
+      Simple lookup service is a trait that supports the default FOLIO UX by providing a simple search box and a field to use along with a more complex filter expression language
+    examples:
+      AgreementSearch: |
+        filters=agreementStatus.value==active%7C%7CagreementStatus.value==draft%7C%7CagreementStatus.value==in_negotiation%7C%7CagreementStatus.value==requested&filters=tags.value==urgent&sort=name;asc&stats=true&perPage=100&offset=0
+        
     queryParameters:
       filters:
-        description: A DSL for filtering understanding logical connectives && ||, comparisons =i= == != 
+        description: |
+          A DSL for filtering understanding logical connectives && ||, comparisons =i= == != 
+        examples:
+          "Agreements where agreement status value is active": |
+             filters=agreementStatus.value==active
+          "Agreements where agreement status value is active OR status.value is draft": |
+             filters=agreementStatus.value==active||agreementStatus.value==draft
       sort:
         description: List of fields/order specifiers
-      max:
+        examples:
+          "Sort by name ascending": |
+            sort=name;asc
+      perPage:
        description: Maximum number of objects to return
       match:
        description: Field to use for term search
@@ -52,7 +66,7 @@ traits:
         description: Wrap the search result in an outer object that reports hit counts and other search metadata
 
 resourceTypes:
-  GrailsResourceCollection:
+  KIWTResourceCollection:
     description: General REST api for instances of <<typeName>>
     get:
       description: Search over all current instances of this resource class
@@ -69,7 +83,7 @@ resourceTypes:
           body:
             application/json:
               type: <<typeName>>
-  GrailsResourceItem:
+  KIWTResourceItem:
     put:
       description: Update an existing instance
       type:  <<resourcePathName|!singularize|!uppercamelcase>>
@@ -80,35 +94,35 @@ resourceTypes:
 /refdata:
   /{refdata_category}:
     displayName: Access a specific category
-    type: { GrailsResourceCollection: { "typeName": "RefdataCategory" } }
+    type: { KIWTResourceCollection: { "typeName": "RefdataCategory" } }
 
 /settings:
   /appSettings:
-    type: { GrailsResourceCollection: { "typeName": "AppSetting" } }
+    type: { KIWTResourceCollection: { "typeName": "AppSetting" } }
     description: Application settings
 
 /fundings:
-  type: { GrailsResourceCollection: { "typeName": "Funding" } }
+  type: { KIWTResourceCollection: { "typeName": "Funding" } }
   description: Application settings
 
 /titleInstances:
-  type: { GrailsResourceCollection: { "typeName": "TitleInstance" } }
+  type: { KIWTResourceCollection: { "typeName": "TitleInstance" } }
   description: An Instance in the FRBR/Bibframe sense - an individually identifable specific appearence of a work made concrete in some medium/form/edition
 
 /works:
-  type: { GrailsResourceCollection: { "typeName": "Work" } }
+  type: { KIWTResourceCollection: { "typeName": "Work" } }
   description: A work in the FRBR/Bibframe Sense - E.G. "Nature" as opposed to the print or electronic instances of Nature, or "Brain of the Firm" a book but not a specific edition of that book
 
 /party:
-  type: { GrailsResourceCollection: { "typeName": "Party" } }
+  type: { KIWTResourceCollection: { "typeName": "Party" } }
   description: An individual or institution participating in an OA publication request - possibly NOT a member of THIS institution and possibly without a login
 
 /checklistGroup:
-  type: { GrailsResourceCollection: { "typeName": "ChecklistGroup" } }
+  type: { KIWTResourceCollection: { "typeName": "ChecklistGroup" } }
   description:
 
 /correspondence:
-  type: { GrailsResourceCollection: { "typeName": "Correspondence" } }
+  type: { KIWTResourceCollection: { "typeName": "Correspondence" } }
   description:
 
 
